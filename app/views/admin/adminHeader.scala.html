@@ -1,0 +1,26 @@
+@()(implicit session: Session)
+<div class="navbar navbar-inverse">
+    <div class="navbar-inner">
+    <div class="container">
+      <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a href="#" class="brand">僕たちの勉強会</a>
+      <div class="nav-collapse collapse navbar-responsive-collapse">
+    
+        
+        <ul class="nav pull-right">
+          <li><a href="/admin/album">勉強会管理</a></li>
+          <li class="divider-vertical"></li>
+          <li><a href="#"></a></li>
+          <li class="divider-vertical"></li>
+          <li><a href="#">@session.get("admin_disname")</a></li>
+        </ul>
+        
+        
+      </div><!-- /.nav-collapse -->
+    </div>
+    </div><!-- /navbar-inner -->
+</div>

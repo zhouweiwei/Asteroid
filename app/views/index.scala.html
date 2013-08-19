@@ -1,7 +1,72 @@
-@(message: String)
+@(loginForm: Form[(String, String)])
 
-@main("Welcome to Play 2.1") {
+@main("Study Videos") {
+	@header()
+    <br/>
+    <br/>
+    <div class="container">
+    	<div class="row">
+    		<div class="span9 showgrid">
+		    	<h2>勉強会の最新情報通知（更新、予報）</h2>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    </div>
+		    <div class="span3 showgrid">
+		    	<form class="form-signin" action="@routes.UserCenter.userLogin" method="post">
+		    		@login.userLogin(loginForm)
+		    	</form>
+		    </div>
+
+    	</div>
+    	<br/>
+    	<br/>
+		<br/>
+		<br/>
+    	<div class="row">
+    		 <div class="span9 showgrid">
+    		 	<h2>人気の勉強会一覧</h2>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+    		 </div>
+    		 <div class="span3 showgrid">
+    		 	<h2>新着の勉強会一覧</h2>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	<br/>
+		    	
+    		 </div>
+    	</div>
+    </div>
     
-    @play20.welcome(message)
+    
     
 }

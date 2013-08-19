@@ -4,6 +4,32 @@
 
 # Home page
 GET     /                           controllers.Application.index
+GET     /admin                      controllers.Application.adminIndex
+GET		/admin/initMenu				controllers.Application.intMenu
 
+# UserCenter
+POST	/userlogin					controllers.UserCenter.userLogin
+POST	/admin/login				controllers.UserCenter.adminLogin
+
+# Video Album
+GET		/admin/album 				controllers.Album.listAlbum
+GET		/admin/album/list 			controllers.Album.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /admin/album/new        	controllers.Album.create
+POST    /admin/album/save           controllers.Album.save
+GET     /admin/album/edit/:id       controllers.Album.edit(id:ObjectId)
+POST    /admin/album/update/:id     controllers.Album.update(id:ObjectId)
+GET     /admin/album/delete/:id     controllers.Album.delete(id:ObjectId)
+GET     /admin/album/detail/:id     controllers.Album.detail(id:ObjectId)
+
+# Videos
+GET		/admin/video/list/:id 		controllers.VideoCenter.list(id:ObjectId, p:Int ?= 0, s:Int ?= 2, f ?= "")
+GET     /admin/video/new/:id       	controllers.VideoCenter.create(id:ObjectId)
+POST    /admin/video/save/:id       controllers.VideoCenter.save(id:ObjectId)
+GET     /admin/video/edit/:id       controllers.VideoCenter.edit(id:ObjectId)
+POST    /admin/video/update/:album/:video     controllers.VideoCenter.update(album:ObjectId,video:ObjectId)
+GET     /admin/video/delete/:album/:video     controllers.VideoCenter.delete(album:ObjectId,video:ObjectId)
+GET     /admin/video/detail/:videoId       	  controllers.VideoCenter.detail(videoId:ObjectId)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+

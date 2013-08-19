@@ -1,0 +1,44 @@
+@(video: ObjectId, album: ObjectId, videoForm: Form[models.Video],albums:Seq[(String, String)])(implicit  session: Session)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.f) }
+
+@main("Video Management") {
+    
+    @views.html.admin.adminHeader()(session)
+      <div class="container">
+    <h1>Edit Video</h1>
+    
+    @form(action = routes.VideoCenter.update(album,video),'enctype -> "multipart/form-data") {
+        
+        <fieldset>
+            @inputText(videoForm("chapter"), '_label -> "Video chapter")
+            @inputText(videoForm("name"), '_label -> "Video name")
+            @inputText(videoForm("intro"), '_label -> "Video introduction")
+            @inputText(videoForm("additional"), '_label -> "video addtional")
+
+            @select(
+                videoForm("album"), 
+                albums,
+                '_label -> "Album", 
+                '_default -> (albums.find { case(x,y) => album.toString.equals(x)}).get._2 ,
+                '_showConstraints -> false
+            )
+
+            @inputText(videoForm("fileName"), '_label -> "Uploaded video FileName")
+
+            <label>替换视频文件</label>
+            <input type="file" name="video">
+        
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Save this Album" class="btn primary"> or 
+            <a href="@routes.VideoCenter.list(album)" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+    </div>
+}

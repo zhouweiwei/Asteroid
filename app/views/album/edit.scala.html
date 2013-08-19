@@ -1,0 +1,32 @@
+@(id: ObjectId, albumForm: Form[models.Album])(implicit  session: Session)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.f) }
+
+@main("Album Management") {
+    
+    @views.html.admin.adminHeader()(session)
+      <div class="container">
+    <h1>Edit Album</h1>
+    
+    @form(routes.Album.update(id)) {
+        
+        <fieldset>
+            @inputText(albumForm("title"), '_label -> "Album name")
+            @inputText(albumForm("intro"), '_label -> "Album introduction")
+            @inputText(albumForm("additional"), '_label -> "Album additional")
+            @inputText(albumForm("videoNum"), '_label -> "video Numbers")
+
+        
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Save this Album" class="btn primary"> or 
+            <a href="@routes.Album.list()" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    
+    </div>
+}

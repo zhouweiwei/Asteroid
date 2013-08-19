@@ -1,0 +1,125 @@
+@(album:models.Album,currentPage: Page[Video], currentOrderBy: Int, currentFilter: String)(implicit session:Session ,flash:Flash)
+
+@****************************************
+* Helper generating navigation links    *
+****************************************@
+@link(newPage: Int, newOrderBy: Option[Int] = None) = @{
+    routes.Album.list(newPage, newOrderBy.map { orderBy =>
+        if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
+    }.getOrElse(currentOrderBy), currentFilter)
+    
+}
+
+@**********************************
+* Helper generating table headers *
+***********************************@
+@header(orderBy: Int, title: String) = {
+    <th class="col@orderBy header @if(scala.math.abs(currentOrderBy) == orderBy) @{if(currentOrderBy < 0) "headerSortDown" else "headerSortUp"}">
+        <a href="@link(0, Some(orderBy))">@title</a>
+    </th>
+}
+
+@main("Video Management") {
+    
+    @views.html.admin.adminHeader()(session)
+    <br/>
+    <br/>
+    <div class="container">
+            
+            @flash.get("success").map { message =>
+                <div class="alert alert-success">
+                    <strong>Done!</strong> @message
+                </div>
+            }
+    	<div class="row">
+	    	<div class="span9">
+	    		@album.title (全 @album.videoNum 回)<br/>
+	    		@album.intro
+	    	</div>
+	    	<div class="span3">
+	    		当該勉強会の進捗
+	    	</div>
+    	</div>
+
+    	<br/>
+    	<br/>
+    	<div class="row">
+			<div id="actions">
+				<a class="btn success" id="add" href="@routes.VideoCenter.create(album.id)">Add a new Video</a>
+			</div>
+    	</div>
+    	
+        <h3>@Messages("videos.list.title", currentPage.total)</h3>
+    	@Option(currentPage.items).filterNot(_.isEmpty).map { videos =>
+        
+        <table class="zebra-striped">
+            <thead>
+                <tr>
+                 <tr>
+                    @header(2, "章節一覧")
+                    @header(3, "勉強会内容概要（目次）")
+                    @header(4, "補足情報一覧")
+                    @header(1, "関連情報リンク")
+                    @header(1, "Operation")
+                </tr>
+                </tr>
+            </thead>
+            <tbody>
+
+                @videos.map { 
+                    case (video) => {
+                        <tr>
+                            <td class="span1">@video.chapter</td> 
+                          
+                            <td class="span3"><a href="@routes.VideoCenter.detail(video.id)">@video.name</a></td> 
+                            <td class="span3">@video.additional</td> 
+                            <td class="span2"></td> 
+                            <td class="span2">
+                                <a href="@routes.VideoCenter.edit(video.id)" class="btn btn-info">Edit</a>
+                                <a href="@routes.VideoCenter.delete(video.album,video.id)" class="btn btn-danger ">Delete</a>
+                            </td>
+                           
+                        </tr>
+                        
+                    }
+                }
+
+            </tbody>
+        </table>
+
+        <div id="pagination" class="pagination">
+            <ul>
+                @currentPage.prev.map { page =>
+                    <li class="prev">
+                        <a href="@link(page)">&larr; Previous</a>
+                    </li> 
+                }.getOrElse {
+                    <li class="prev disabled">
+                        <a>&larr; Previous</a>
+                    </li>
+                }
+                <li class="current">
+                    <a>Displaying @(currentPage.offset + 1) to @(currentPage.offset + videos.size) of @currentPage.total</a>
+                </li>
+                @currentPage.next.map { page =>
+                    <li class="next">
+                        <a href="@link(page)">Next &rarr;</a>
+                    </li> 
+                }.getOrElse {
+                    <li class="next disabled">
+                        <a>Next &rarr;</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        
+    }.getOrElse {
+        
+        <div class="well">
+            <em>Nothing to display</em>
+        </div>
+        
+    }
+    </div>
+
+}

@@ -1,0 +1,4 @@
+# Messages
+
+albums.list.title = {0,choice,0#No albums|1#One album|1<{0,number,integer} albums} found
+videos.list.title = {0,choice,0#No videos|1#One videos|1<{0,number,integer} videos} found

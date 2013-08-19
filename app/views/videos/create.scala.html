@@ -1,0 +1,34 @@
+@(videoForm: Form[models.Video],id:ObjectId)(implicit  session: Session)
+
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.f) } 
+
+@main("Video Management") {
+    
+    @views.html.admin.adminHeader()(session)
+
+    <div class="container">
+    <h1>Add a Video</h1>
+    @form(action = routes.VideoCenter.save(id), 'enctype -> "multipart/form-data") {
+        
+        <fieldset>
+            @inputText(videoForm("chapter"), '_label -> "Video chapter")
+            @inputText(videoForm("name"), '_label -> "Video name")
+            @inputText(videoForm("intro"), '_label -> "Video introduction")
+            @inputText(videoForm("additional"), '_label -> "video addtional")
+            
+            <input type="file" name="video">
+
+        
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" value="Create this video" class="btn primary"> or 
+            <a href="@routes.VideoCenter.list(id)" class="btn">Cancel</a> 
+        </div>
+        
+    }
+    </div>
+
+}    

@@ -1,0 +1,32 @@
+@(loginForm: Form[(String, String)],message:String)
+
+@main("Admin Login") {
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div class="container">
+    	
+	    <div class="row">
+    		<div class="span6 showgrid">
+		    	<form class="form-signin" action="@routes.UserCenter.adminLogin" method="post">
+		    		@login.userLogin(loginForm)
+		    	</form>
+		    </div>
+		</div>
+		@if(message != ""){
+			<div class="row">
+		    	<div class="span5 alert alert-success" style="margin-top:20px;">
+	      			@message
+	      		</div>
+    		</div>
+		}
+		
+
+	    
+    </div>
+}

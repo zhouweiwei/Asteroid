@@ -1,0 +1,10 @@
+@(form: Form[(String, String)])
+
+
+	<h2 class="form-signin-heading">Sign in</h2>
+	<input class="input-block-level" type="text" placeholder="Username" name="username">
+	<input class="input-block-level" type="password" placeholder="Password" name="passwd">
+	@form.globalError.map {error =>
+    <div class="alert alert-error">@error.message</div>
+}
+	<button class="btn  btn-primary" type="submit">Sign in</button>
