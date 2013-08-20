@@ -10,6 +10,7 @@ GET		/admin/initMenu				controllers.Application.intMenu
 # UserCenter
 POST	/userlogin					controllers.UserCenter.userLogin
 POST	/admin/login				controllers.UserCenter.adminLogin
+GET		/admin/edit/				controllers.UserCenter.adminEdit
 
 # Video Album
 GET		/admin/album 				controllers.Album.listAlbum

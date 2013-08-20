@@ -61,23 +61,17 @@ object UserCenter extends Controller with Application.Secured{
   	}
 
 
-  // def initHomePage = Action{
-    	
-  //  }
-  	// def loginAction(f: Request[AnyContent]=> Result):Action[AnyContent] = {
-  	// 	Action{ implicit request =>
-  	// 		Logger.info("Calling loginAction")
-  	// 		userLoginForm.bindFromRequest.fold(
-		 //      formWithErrors => BadRequest(views.html.index(formWithErrors)),
-		 //      user => {
-		 //        Logger.info("Login:..username:"+ user._1)
-		 //        Logger.info("Login:..passwd:"+ user._2)
-		        
-		 //      }
-		 //    )
-  	// 		f(request)
-  	// 	}
-  		
-  	//}
+	/**
+	* Display the 'edit form' of a existing User.
+	*
+	* 
+	*/
+	def adminEdit = adminIsAuthed { adminLogin => implicit request =>
+	    User.findOneByUsername(request.session.get("admin_username").get).map { admin =>
+	    	Logger.info("edit User:	"+admin.nickname)
+	    	val author = request.session.get("admin_username").get
+	      	Ok(views.html.videos.edit(id, video.album, videoForm(id=id,album_id=video.album).fill(video),models.Album.options(author)))
+	    }.getOrElse(NotFound)
+	}
   	
 }
